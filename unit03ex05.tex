@@ -1,0 +1,53 @@
+\chapter{Unit 3}
+
+\section{Exercise 5}
+
+\subsection{Task}
+Prove that the binary version of the Vigenère cipher with $\mathcal{K} = \{0, 1\}^l$ and $\mathcal{M} = \{0, 1\}^{l+1}$ is not perfectly secure.
+
+\subsection{Solution}
+
+First, let's note that the condition of the task means that our key is 1 bit shorter than the plaintext.
+
+Now, a cipher is perfectly secure if:
+
+\begin{equation}
+\forall m \in \mathcal{M}, \forall c \in \mathcal{C}: \; P(M = m | C = c) = P(M = m)
+\end{equation}
+
+where $\mathcal{C}$ is the set of all possible ciphertexts.
+
+In other words, observing the ciphertext does not give any information about the plaintext.
+
+Let's try to find a counterexample:
+
+\begin{equation}
+\exists m \in \mathcal{M}, \exists c \in \mathcal{C}: \; P(M = m | C = c) \neq P(M = m)
+\end{equation}
+
+Due to how the Vigenère cipher works, in our case, where the length of the key is smaller than the length of the plaintext, at $l+1$ bit, the ciphertext will be creating by XORing with the first bit of the key.
+
+Let's consider the following ciphertext:
+
+\begin{equation}
+c = (b, *, \ldots, *, b) \text{ where } b \in \{0,1\} \text{ and } * \text{ represents any bit}
+\end{equation}
+
+(first and last bits are the same).
+
+This means that it's impossible for the first and last bits of the plaintext to be different, because they are created by the same bit of the key.
+
+That is:
+
+\begin{equation}
+P(M = (u, *, \ldots, *, v) | C = c) = 0, u \neq v
+\end{equation}
+
+but such a plaintext exists:
+
+\begin{equation}
+P(M = (u, *, \ldots, *, v)) > 0, u \neq v
+\end{equation}
+
+Therefore, the cipher is not perfectly secure. \qed
+
