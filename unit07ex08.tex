@@ -1,0 +1,106 @@
+\chapter*{Unit 7}
+\section*{Exercise 8}
+
+\subsection*{Task}
+
+Diffie Hellman KE protocol.
+
+Compute an instance of the protocol with $G = (\mathbb{Z}_{13}^*, \cdot)$
+
+
+\subsection*{Solution}
+
+To start the protocol, Alice and Bob agree on a generator $g$ and a modulus $q$.
+
+Since 13 is a prime number, the set $\mathbb{Z}_{13}^*$ contains all numbers from 1 to 12.
+
+\begin{equation}
+    \mathbb{Z}_{13}^* = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12\}
+\end{equation}
+
+Therefore, 
+
+\begin{equation}
+    q = 12
+\end{equation}
+
+To find a generator, we can choose any number from 1 to 12 such that its powers generate all numbers from 1 to 12 without repetition.
+
+Let's try $g = 2$:
+
+\begin{align}
+1 &= 2^{12} &= 4096 &= 1 \mod 13 \\
+2 &= 2^1    &= 2    &= 2 \mod 13 \\
+3 &= 2^4    &= 16   &= 3 \mod 13 \\
+4 &= 2^2    &= 4    &= 4 \mod 13 \\
+5 &= 2^9    &= 512  &= 5 \mod 13 \\
+6 &= 2^5    &= 32   &= 6 \mod 13 \\
+7 &= 2^{11} &= 2048 &= 7 \mod 13 \\
+8 &= 2^3    &= 8    &= 8 \mod 13 \\
+9 &= 2^8    &= 256  &= 9 \mod 13 \\
+10 &= 2^{10} &= 1024 &= 10 \mod 13 \\
+11 &= 2^7    &= 128  &= 11 \mod 13 \\
+12 &= 2^6    &= 64   &= 12 \mod 13
+\end{align}
+
+Thus, $2$ is a generator for $\mathbb{Z}_{13}^*$, so:
+
+\begin{equation}
+    g = 2
+\end{equation}
+
+Alice has collected the three required items to start the handshake according to the protocol:
+
+\begin{equation}
+    (G = (\mathbb{Z}_{13}^*, \cdot), q = 12, g = 2)
+\end{equation}
+
+Alice chooses a secret key $a \in \mathbb{Z}_{13}^*$:
+
+\begin{equation}
+    a = 5
+\end{equation}
+
+Alice computes her side of challenge (a public key): 
+
+\begin{equation}
+    A = g^a \mod 13 = 2^5 \mod 13 = 32 \mod 13 = 6
+\end{equation}
+
+Alice sends her part of handshake to Bob: 
+
+\begin{equation}
+    (G = (\mathbb{Z}_{13}^*, \cdot), q = 12, g = 2, A = 6)
+\end{equation}
+
+Bob chooses a secret key $b \in \mathbb{Z}_{13}^*$:
+
+\begin{equation}
+    b = 7
+\end{equation}
+
+Bob computes his side of challenge (a public key):
+
+\begin{equation}
+    B = g^b \mod 13 = 2^7 \mod 13 = 128 \mod 13 = 11
+\end{equation}
+
+Bob sends his part of handshake to Alice:
+
+\begin{equation}
+    (G = (\mathbb{Z}_{13}^*, \cdot), q = 12, g = 2, B = 11)
+\end{equation}
+
+Alice computes shared secret key $s$:
+
+\begin{equation}
+    s = B^a \mod 13 = 11^5 \mod 13 = 161051 \mod 13 = 9
+\end{equation}
+
+Bob computes shared secret key $s$:
+
+\begin{equation}
+    s = A^b \mod 13 = 6^7 \mod 13 = 279936 \mod 13 = 9
+\end{equation}
+
+Thus, now Alice and Bob share the secret key $s = 9$.
