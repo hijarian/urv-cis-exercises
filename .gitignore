@@ -5,5 +5,7 @@
 *.blg
 *.out
 *.toc
+*.run.xml
+*.bcf
 
 .vscode/
