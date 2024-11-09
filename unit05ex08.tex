@@ -32,7 +32,7 @@ XTS mode is based on the paper by Rogaway, which introduces the concept of \text
 VeraCrypt~\cite{VeraCrypt} is an open-source disk encryption software which uses XTS mode.
 In its documentation there's a succinct description of the mode~\cite{VeraCrypt-modes}:
 
-\begin{quote}
+\begin{fancyquote}
     Description of the XTS mode:
     \begin{align*}
         C_i &= E_{K1}(P_i \wedge (E_{K2}(n) \otimes a^i)) \wedge (E_{K2}(n) \otimes a^i)
@@ -47,7 +47,7 @@ In its documentation there's a succinct description of the mode~\cite{VeraCrypt-
         \item $a$ is a primitive element of Galois Field $GF(2^{128})$ that corresponds to polynomial $x$ (i.e., 2).
     \end{itemize}
     The size of each data unit is always 512 bytes (regardless of the sector size).
-\end{quote}
+\end{fancyquote}
 
 In the quote above:
 \begin{itemize}
