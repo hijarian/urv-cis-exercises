@@ -21,6 +21,7 @@ jobs:
       - name: Tectonic cache
         uses: actions/cache@v4
         with:
+          path: ~/.cache/Tectonic
           key: ${{ runner.os }}-tectonic-cache-${{ hashFiles('**/*.tex') }}
           restore-keys: ${{ runner.os }}-tectonic-cache-
 
