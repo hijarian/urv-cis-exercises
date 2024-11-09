@@ -22,4 +22,59 @@ As an example, WhatsApp uses \textit{three} different modes for different purpos
     \item ``Once a session has been established, clients exchange messages that are protected with a Message Key using AES256 in CBC mode for encryption [and HMAC-SHA2256 for authentication]'', end quote from the whitepaper, page 15.
 \end{itemize}
 
-A mode which is the industry standard for disk data encryption is XTS.
+A mode which is the industry standard for disk data encryption is XTS\@.
+This was formally declared in 2010 by the NIST Special Publication 800-38E~\cite{NIST-XTS}.
+
+While the NIST 800-38E is a great explanation of the mode by itself, let's comment on it shortly here.
+
+XTS mode is based on the paper by Rogaway, which introduces the concept of \textit{tweakable block ciphers}~\cite{Rogaway}.
+
+VeraCrypt~\cite{VeraCrypt} is an open-source disk encryption software which uses XTS mode.
+In its documentation there's a succinct description of the mode~\cite{VeraCrypt-modes}:
+
+\begin{quote}
+    Description of the XTS mode:
+    \begin{align*}
+        C_i &= E_{K1}(P_i \wedge (E_{K2}(n) \otimes a^i)) \wedge (E_{K2}(n) \otimes a^i)
+    \end{align*}
+    Where:
+    \begin{itemize}
+        \item $\otimes$ denotes multiplication of two polynomials over the binary field $GF(2)$ modulo $x^{128} + x^7 + x^2 + x + 1$.
+        \item $K1$ is the encryption key (256-bit for each supported cipher; i.e, AES, Serpent, and Twofish)
+        \item $K2$ is the secondary key (256-bit for each supported cipher; i.e, AES, Serpent, and Twofish)
+        \item $i$ is the cipher block index within a data unit; for the first cipher block within a data unit, $i = 0$.
+        \item $n$ is the data unit index within the scope of $K1$; for the first data unit, $n = 0$.
+        \item $a$ is a primitive element of Galois Field $GF(2^{128})$ that corresponds to polynomial $x$ (i.e., 2).
+    \end{itemize}
+    The size of each data unit is always 512 bytes (regardless of the sector size).
+\end{quote}
+
+In the quote above:
+\begin{itemize}
+    \item $C_i$ is the $i$-th cipher block.
+    \item $P_i$ is the $i$-th plaintext block.
+    \item $E_{K1}$ and $E_{K2}$ denote the encryption function with keys $K1$ and $K2$, respectively.
+    \item $\wedge$ denotes the XOR operation.
+\end{itemize}
+
+The core point of the whole process is that the number of the block is involved in the encryption process.
+This idea allows for a very efficient parallelization of the encryption and decryption processes as we essentially enable random access to the data.
+
+The implementation of XTS can be found in the Linux kernel~\cite{linux-kernel}, in the file \texttt{crypto/xts.c} (https://github.com/torvalds/linux/blob/master/crypto/xts.c).
+
+While Rogaway's paper~\cite{Rogaway} proves that the mode preserves the security properties of the underlying cipher, it still have inherent downsides.
+
+\begin{itemize}
+    \item XEX and by extension XTS does not provide \textit{authenticity}. If the attacker modifies a block in the ciphertext, the decryption will produce a valid plaintext with mangled data. In addition to that, it enables \textit{watermarking attacks}.
+    \item This is a fixed-size block cipher mode, and as such, it lacks the flexibility of other modes, such as GCM, which is able to operate on arbitrary-length messages naturally.
+\end{itemize}
+
+In addition to that, the NIST-approved XST based on IEEE P1619~\cite{IEEE1619} specifically have the following peculiarities:
+\begin{itemize}
+    \item Original XEX works with the fixed-length data blocks \textit{only}.
+    To circumvent it, XST introduces the technique of \textit{ciphertext stealing}, which essentially allows for the last block to be of a different size.
+    Implementation of this technique is non-trivial and increases the cost and complexity of the mode implementation.
+    \item The AES key length is limited to only two options: 128-bit (for 256-bit AES) or 256-bit (for 512-bit AES).
+\end{itemize}
+
+In layman terms, XTS is a very good mode for disk encryption, because it's better than raw CBC, but it's not the best mode for all use cases, as GCM is significantly more feature-rich.
