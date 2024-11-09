@@ -1,0 +1,25 @@
+\chapter{Unit 5}
+\section{Exercise 8}
+
+\subsection{Task}
+AES in practice.
+
+\begin{enumerate}
+    \item[a)] Search for applications using AES, and explain how they use it.
+    \item[b)] In some of these applications, AES is used in modes that are different from the ones we saw in the course (we saw ECB, CBC, CFB, CTR). Choose one of these modes, explain how it works, and explain its advantages.
+\end{enumerate}
+
+At least 1 page
+
+\subsection{Solution}
+
+An AES ``mode'' is a way to use AES, which is a block cipher, to encrypt data that is longer than a single block.
+Different modes have different trade-offs, thus, different applications use different modes for their specific use case.
+
+As an example, WhatsApp uses \textit{three} different modes for different purposes, as explained in their security whitepaper~\cite{whatsapp}:
+\begin{itemize}
+    \item For the "link using an 8-character code" feature, they use AES-GCM and AES-CTR.
+    \item ``Once a session has been established, clients exchange messages that are protected with a Message Key using AES256 in CBC mode for encryption [and HMAC-SHA2256 for authentication]'', end quote from the whitepaper, page 15.
+\end{itemize}
+
+A mode which is the industry standard for disk data encryption is XTS.
