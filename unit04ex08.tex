@@ -2,22 +2,24 @@
 \section{Exercise 8}
 
 \subsection{Task}
-Let G : {0, 1}n → {0, 1}2n be a pseudorandom generator.
-Prove that the function G0 : {0, 1}n → {0, 1}6n detailed below is not a pseudorandom generator.
+Let $G : \{0, 1\}^n \to \{0, 1\}^{2n}$ be a pseudorandom generator.
+Prove that the function $G' : \{0, 1\}^n \to \{0, 1\}^{6n}$ detailed below is not a pseudorandom generator.
 
-(a) Let s1, . . . , sn be the input of G′.
-(b) Compute (y1, . . . , y2n) = G(s1, . . . , sn).
-(c) Compute (z1, . . . , z2n) = G(y1, . . . , yn).
-(d) Compute (z2n+1, . . . , z4n) = G(yn+1, . . . , y2n).
-(e) Output (y1, . . . , y2n, z1, . . . , z2n, z2n+1, . . . , z4n).
+\begin{enumerate}
+    \item[a)] Let $s_1, \ldots, s_n$ be the input of $G'$.
+    \item[b)] Compute $(y_1, \ldots, y_{2n}) = G(s_1, \ldots, s_n)$.
+    \item[c)] Compute $(z_1, \ldots, z_{2n}) = G(y_1, \ldots, y_n)$.
+    \item[d)] Compute $(z_{2n+1}, \ldots, z_{4n}) = G(y_{n+1}, \ldots, y_{2n})$.
+    \item[e)] Output $(y_1, \ldots, y_{2n}, z_1, \ldots, z_{2n}, z_{2n+1}, \ldots, z_{4n})$.
+\end{enumerate}
 
 \subsection{Solution}
 
-One can see that the output of G0 is a concatenation of two different ``generations'' of G.
+One can see that the output of $G'$ is a concatenation of two different ``generations'' of $G$.
 
-As such, we can construct a detector for G0 which checks if the last 4n elements of the output are the result of applying G to the first 2n elements.
+As such, we can construct a distinguisher for $G'$ which checks if the last $4n$ elements of the output are the result of applying $G$ to the first $2n$ elements.
 
-This will inevitably lead to a conclusion that the probability of detecting output of G0 is 1 but the probability of applying detector to a truly random string is less than that.
+This will inevitably lead to a conclusion that the probability of detecting output of $G'$ is 1 but the probability of applying distinguisher to a truly random string is less than that.
 Calculating the exact probability value is an exercise in combinatorics, and is not necessary for the proof.
 
-Therefore, G0 is not a pseudorandom generator. \qed
+Therefore, $G'$ is not a pseudorandom generator. \qed
