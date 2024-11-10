@@ -68,10 +68,10 @@ While Rogaway's paper~\cite{Rogaway} proves that the mode preserves the security
     \item This is a fixed-size block cipher mode, and as such, it lacks the flexibility of other modes, such as GCM, which is able to operate on arbitrary-length messages naturally.
 \end{itemize}
 
-In addition to that, the NIST-approved XST based on IEEE P1619~\cite{IEEE1619} specifically have the following peculiarities:
+In addition to that, the NIST-approved XTS based on IEEE P1619~\cite{IEEE1619} specifically have the following peculiarities:
 \begin{itemize}
     \item Original XEX works with the fixed-length data blocks \textit{only}.
-    To circumvent it, XST introduces the technique of \textit{ciphertext stealing}, which essentially allows for the last block to be of a different size.
+    To circumvent it, XTS introduces the technique of \textit{ciphertext stealing}, which essentially allows for the last block to be of a different size.
     Implementation of this technique is non-trivial and increases the cost and complexity of the mode implementation.
     \item The AES key length is limited to only two options: 128-bit (for 256-bit AES) or 256-bit (for 512-bit AES).
 \end{itemize}
