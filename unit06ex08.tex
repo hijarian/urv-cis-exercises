@@ -3,14 +3,94 @@
 
 \subsection{Task}
 Suppose that you want to find SHA256 collisions.
-(a) Given a string d of 256 bits, make an estimation of how many exe-
-cutions you need to perform in order to find an input x satisfying
-SHA256(x) = d
-(b) Make an estimation of how many executions you would need to
-find x and y with SHA256(x) = SHA256(y)
-(c) Use openssl or another program to have an estimation of the exe-
-cution time of SHA256. Give an estimation of the time (in years)
-needed in the previous algorithms.
+\begin{enumerate}
+    \item[a)] Given a string \(d\) of 256 bits, make an estimation of how many executions you need to perform in order to find an input \(x\) satisfying \(SHA256(x) = d\).
+    \item[b)] Make an estimation of how many executions you would need to find \(x\) and \(y\) with \(SHA256(x) = SHA256(y)\).
+    \item[c)] Use openssl or another program to have an estimation of the execution time of SHA256. Give an estimation of the time (in years) needed in the previous algorithms.
+\end{enumerate}
 
 \subsection{Solution}
-[Solution goes here] 
+
+\textbf{a)} Finding an input $x$ which results in a given hash is essentially a reversing of the hash function and is called a \textit{preimage attack}.
+
+Given that:
+\begin{itemize}
+    \item SHA256 is designed to be a cryptographic hash function
+    \item length of the hash $d$ is 256 bits
+\end{itemize}
+
+we can treat the problem as guessing a random 256-bit number, and the probability of finding the correct input is:
+\[ P(\text{success}) = \frac{1}{2^{256}} \]
+
+The expected number of attempts needed is therefore $2^{256}$.
+
+\textbf{b)} Finding two inputs \(x\) and \(y\) where \(SHA256(x) = SHA256(y)\) is finding a collision and is called a \textit{birthday attack} or a \textit{second preimage attack}.
+
+The probability of having NO collisions after $n$ attempts is:
+\begin{equation}
+    P(\text{no collision}) \approx e^{-\frac{n^2}{2T}}
+\end{equation}
+
+In our case, $T = 2^{256}$.
+The probability of having at least one collision after $n$ attempts is:
+\[ P(\text{collision}) = 1 - e^{-\frac{n^2}{2T}} \]
+
+Let's say we want to find a collision with $50\%$ probability.
+For that, we solve for $n$:
+\begin{equation}
+    1 - e^{-\frac{n^2}{2T}} = 0.5
+\end{equation}
+
+Wolfram Alpha gives us:
+\begin{equation}
+    n = \pm \sqrt{T} \sqrt{2 log(2)}
+\end{equation}
+
+Which means:
+\begin{equation}
+    n = \sqrt{T} \sqrt{2 log(2)} \approx 2^{128} \times 1.7741 \approx 2^{129}
+\end{equation}
+
+Which is a bit larger even than $2^{128}$.
+
+\textbf{c)} To get a ballpark estimate of the time needed to find a collision, we can measure the performance of SHA256 on a particular machine using OpenSSL toolchain.
+
+\begin{verbatim}
+$ openssl speed sha256
+Doing sha256 ops for 3s on 16 size blocks: 11430738 sha256 ops in 3.00s
+Doing sha256 ops for 3s on 64 size blocks: 7448426 sha256 ops in 3.00s
+Doing sha256 ops for 3s on 256 size blocks: 4051232 sha256 ops in 3.00s
+Doing sha256 ops for 3s on 1024 size blocks: 1417428 sha256 ops in 3.00s
+Doing sha256 ops for 3s on 8192 size blocks: 194038 sha256 ops in 3.00s
+Doing sha256 ops for 3s on 16384 size blocks: 99755 sha256 ops in 3.00s
+\end{verbatim}
+
+Our case is 256-size blocks, so:
+\[ \text{Speed} = \frac{4051232 \text{ hashes}}{3 \text{ seconds}} = 1.35041 \times 10^6 \text{ hashes/s} \]
+
+For part (a), with $2^{256}$ attempts needed:
+\begin{align*}
+    \text{Time} &= \frac{2^{256} \text{ hashes}}{1.35041 \times 10^6 \text{ hashes/sec}} \\
+    &= \frac{1.1579 \times 10^{77} \text{ hashes}}{1.35041 \times 10^6 \text{ hashes/sec}} \\
+    &\approx 0.85744329499929650994883035522545 \times 10^{71} \text{ seconds} \\
+    &\approx \frac{8.5744 \times 10^{70} \text{ seconds}}{3.154 \times 10^7 \text{ seconds/year}} \\
+    &\approx 2.7185 \times 10^{63} \text{ years}
+\end{align*}
+
+For part (b), with $2^{128}$ attempts needed:
+\begin{align*}
+    \text{Time} &= \frac{2^{128}}{1.35041 \times 10^6 \text{ hashes/sec}} \\
+    &= \frac{3.4028 \times 10^{38} \text{ hashes}}{1.35041 \times 10^6 \text{ hashes/sec}} \\
+    &\approx 2.5198 \times 10^{32} \text{ seconds} \\
+    &\approx \frac{2.5198 \times 10^{32} \text{ seconds}}{3.154 \times 10^7 \text{ seconds/year}} \\
+    &\approx 7.9892 \times 10^{24} \text{ years}
+\end{align*}
+
+Summing it up:
+\begin{itemize}
+    \item Full reversing of SHA256 on this machine would take approximately $10^{63}$ years
+    \item Finding a collision would take approximately $10^{24}$ years
+    \item The age of the universe is estimated to be only $13.8 \times 10^9$ years ($\approx 2^{33.5}$ years)
+\end{itemize}
+
+This demonstrates that on the modern hardware, SHA256 is considered cryptographically secure against both preimage and collision attacks, as both of them are clearly infeasible.
