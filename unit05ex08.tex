@@ -12,8 +12,8 @@ At least 1 page
 
 \subsection{Solution}
 
-An AES ``mode'' is a way to use AES, which is a block cipher, to encrypt data that is longer than a single block.
-Different modes have different trade-offs, thus, different applications use different modes for their specific use case.
+An AES "mode" is a way to use AES, which is a block cipher, to encrypt data that is longer than a single block.
+Different modes have different trade-offs; thus, different applications use different modes for their specific use cases.
 
 As an example, WhatsApp uses \textit{three} different modes for different purposes, as explained in their security whitepaper~\cite{whatsapp}:
 \begin{itemize}
@@ -61,7 +61,7 @@ This idea allows for a very efficient parallelization of the encryption and decr
 
 The implementation of XTS can be found in the Linux kernel~\cite{linux-kernel}, in the file \texttt{crypto/xts.c} (https://github.com/torvalds/linux/blob/master/crypto/xts.c).
 
-While Rogaway's paper~\cite{Rogaway} proves that the mode preserves the security properties of the underlying cipher, it still have inherent downsides.
+While Rogaway's paper~\cite{Rogaway} proves that the mode preserves the security properties of the underlying cipher, it still has inherent downsides.
 
 \begin{itemize}
     \item XEX and by extension XTS does not provide \textit{authenticity}. If the attacker modifies a block in the ciphertext, the decryption will produce a valid plaintext with mangled data. In addition to that, it enables \textit{watermarking attacks}.
@@ -76,4 +76,4 @@ In addition to that, the NIST-approved XTS based on IEEE P1619~\cite{IEEE1619} s
     \item The AES key length is limited to only two options: 128-bit (for 256-bit AES) or 256-bit (for 512-bit AES).
 \end{itemize}
 
-In layman terms, XTS is a very good mode for disk encryption, because it's better than raw CBC, but it's not the best mode for all use cases, as GCM is significantly more feature-rich.
+In layman's terms, XTS is a very good mode for disk encryption because it's better than raw CBC, but it's not the best mode for all use cases, as GCM is significantly more feature-rich.
