@@ -27,7 +27,7 @@ For various technical reasons, these PIN codes may not be strong enough, and in 
 
 As an example of differences between various combinations of BR/EDR, LE, legacy, Simple Pairing, and Secure Connections, section 5.4.1 of the specification describes the pairing process in LE and makes a point that in LE Legacy pairing, \texttt{Just Works} and \texttt{Passkey Entry} do not provide defense against passive eavesdropping because they do \textit{not} use ECDH key exchange.
 
-Reading section 5 of the specification makes it painfully obvious that the authors are aware of MITM attacks and passive eavesdropping, and they actively evolve the pairing mechanisms to prevent them.
+In general, reading section 5 "Security Overview" of the volume 1 part A of the specification makes it painfully obvious that MITM attacks and passive eavesdropping are taken seriously, and the authors actively evolve the pairing mechanisms to prevent them.
 
 Technical details of the key exchange algorithms for BR/EDR can be found in volume 2 part H of the specification, section 7 "Secure Simple Pairing".
 Subsection 7.1 explicitly states in the first sentence:
