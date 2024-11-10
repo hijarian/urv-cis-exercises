@@ -1,35 +1,35 @@
 \section{Unit 7 Exercise 13}
 
 \subsection{Task}
-Find real applications that use a key exchange algorithm. Explain
-what is the purpose of the algorithm in this application.
+Find real applications that use a key exchange algorithm.
+Explain what the purpose of the algorithm is in this application.
 
 \subsection{Solution}
 
 Bluetooth is a good non-obvious example of a real-world application of a key exchange algorithm.
 
-Reading the latest Bluetooth specification~\cite{bluetooth} makes it clear that this technology not only uses the key exchange algorithms, but also actively evolves the approaches to key exchange.
-For example, in the version 6.0, section 5.1 Security Architecture(page 309) lists five different key exchange schemes used by Bluetooth over time.
-More than that, Bluetooth specification defines two principally different transport mechanisms, BR/EDR and LE, and each of them has its own details in which exact algorithms are used.
+Reading the latest Bluetooth specification~\cite{bluetooth} makes it clear that this technology not only uses key exchange algorithms but also actively evolves its approaches to key exchange.
+For example, in version 6.0, section 5.1 Security Architecture (page 309) lists five different key exchange schemes used by Bluetooth over time.
+Moreover, the Bluetooth specification defines two principally different transport mechanisms, BR/EDR and LE, and each of them has its own details regarding which exact algorithms are used.
 All of this culminates in the Secure Connections mechanism which uses, if supported by the underlying hardware, P-256 elliptic curve Diffie-Hellman (ECDH) key exchange.
 
 In Bluetooth, key exchange is used in the pairing process, where two devices need to establish a secure connection.
 Regarding the user experience in the pairing process, the specification defines four association models:
 \begin{itemize}
-    \item Numeric Comparison: both devices display a 6-digit number and the user has to enter the same number on both devices.
-    \item Passkey Entry: one device displays a 6-digit number and the user has to enter this number on the second device. This is a fallback mechanism if one of the devices does not have a display.
-    \item Out of Band: the devices exchange beacons and the user has to confirm the pairing on one of the devices.
-    \item Just Works: the devices automatically pair if the pairing is supported by both devices. This does not provide the defense from the MITM attacks.
+    \item Numeric Comparison: both devices display a 6-digit number, and the user has to confirm that the numbers match.
+    \item Passkey Entry: one device displays a 6-digit number, and the user has to enter this number on the second device. This is a fallback mechanism if one of the devices does not have a display.
+    \item Out of Band: the devices exchange beacons, and the user has to confirm the pairing on one of the devices.
+    \item Just Works: the devices automatically pair if the pairing is supported by both devices. This does not provide defense against MITM attacks.
 \end{itemize}
 
-All these association models are created to supply the key exchange process with more entropy, because without the user input key derivation can rely only on the PIN code hardcoded in the device on the factory.
-For various technical reasons, these PIN codes may be not strong enough, and in any case, leaking them once would mean that the device is compromised forever.
+All these association models are created to supply the key exchange process with more entropy because without user input, key derivation can rely only on the PIN code hardcoded in the device at the factory.
+For various technical reasons, these PIN codes may not be strong enough, and in any case, leaking them once would mean that the device is compromised forever.
 
-As an example of differences between different combinations of BR/EDR, LE, legacy, Simple Pairing and Secure Connections, section 5.4.1 of the specification describes the pairing process in LE, and makes a point that in the LE Legacy pairing, \texttt{Just Works} and \texttt{Passkey Entry} do not provide the defense from the passive eavesdropping, because it does \textit{not} use the ECDH key exchange.
+As an example of differences between various combinations of BR/EDR, LE, legacy, Simple Pairing, and Secure Connections, section 5.4.1 of the specification describes the pairing process in LE and makes a point that in LE Legacy pairing, \texttt{Just Works} and \texttt{Passkey Entry} do not provide defense against passive eavesdropping because they do \textit{not} use ECDH key exchange.
 
-Reading the section 5 of the specification makes it painfully obvious that the authors are aware of the MITM attacks and passive eavesdropping, and they actively evolve the pairing mechanisms to prevent them.
+Reading section 5 of the specification makes it painfully obvious that the authors are aware of MITM attacks and passive eavesdropping, and they actively evolve the pairing mechanisms to prevent them.
 
-Technical details of the key exchange algorithms for BR/EDR can be found in the volume 2 part H of the specification, section 7 "Secure Simple Pairing".
+Technical details of the key exchange algorithms for BR/EDR can be found in volume 2 part H of the specification, section 7 "Secure Simple Pairing".
 Subsection 7.1 explicitly states in the first sentence:
 
 \begin{quote}
@@ -37,4 +37,4 @@ Subsection 7.1 explicitly states in the first sentence:
     See Section 5.1 for recommendations on how frequently this key pair should be changed.
 \end{quote}
 
-Almost exactly the same wording can be found in the volume 3 part H section 2 "Security Manager Specification", which describes the pairing process in LE Secure Connections in the subsection 2.3.5.6.1 "Public key exchange".
+Almost exactly the same wording can be found in volume 3 part H section 2 "Security Manager Specification", which describes the pairing process in LE Secure Connections in subsection 2.3.5.6.1 "Public key exchange".
