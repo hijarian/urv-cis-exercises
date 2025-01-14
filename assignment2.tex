@@ -1,0 +1,64 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc} 
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{biblatex}
+\addbibresource{deliverable.bib}
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{fancyquote}{
+    colback=gray!5,
+    colframe=gray!75,
+    left=5mm,
+    right=5mm,
+    top=3mm,
+    bottom=3mm,
+    arc=3mm,
+    boxrule=0.5mm
+}
+
+% Allow display breaks (in \align for example)
+\allowdisplaybreaks
+\usepackage[hidelinks]{hyperref}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+% Title of your project
+\title{The review of The Share Size of Secret-Sharing Schemes for Almost All Access
+Structures and Graphs - A. Beimel, O. Farrás.}
+
+% Name of deliverable
+\newcommand{\deliverableName}{Practical Work 2}
+
+% Group names(s)
+\author{Mark Safrónov}
+
+% Group number
+\newcommand{\groupNumber}{MESIIA 2024-2025}
+
+% Any comments for us
+\newcommand{\comments}{Comments for teachers of the course}
+
+ % Web address for the project (if any)
+\newcommand{\homepage}{\url{https://www.ntnu.edu/studies/courses/IT3010}}
+
+% Date for title page, default is today and 
+\date{\today}
+
+
+\makeatletter{} 
+
+\begin{document}
+
+\input{./title.tex}
+
+\tableofcontents
+
+\input{./assignment2body.tex}
+
+\printbibliography
+
+
+\end{document}
