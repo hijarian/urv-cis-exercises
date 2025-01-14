@@ -98,6 +98,8 @@ A party $P_i$ has an ability to own shares from $S_i$.
 
 A secret-sharing scheme assume existence of a trusted \textit{dealer} who distributes shares to the parties.
 
+\subsection{Access Structures}
+
 An access structure is a collection of sets of parties that can reconstruct the secret.
 It is represented in the paper by $\Gamma$.
 
@@ -120,6 +122,18 @@ Two families of secret-sharing schemes which are the core topic in the paper:
 
 The paper stresses out the distinction between the total size of the shares and maximum sizes of the shares.
 
+The \textbf{total size} of the shares is the sum of the sizes of all shares held by all parties in a given secret-sharing scheme.
+
+The \textbf{maximum size} of the shares is the maximum size of the shares over all parties in a given secret-sharing scheme.
+
+Formally the definition given in the paper is:
+
+\emph{Given a secret-sharing scheme $\Pi$,
+define the \emph{size} of the secret as $\log |S|$,
+the \emph{share size} of party $P_j$ as $\log |S_j|$,
+the \emph{maximum share size} as $\max_{1\le j \le n} \{\log |S_j| \}$,
+and the \emph{total share size} as $\sum_{j=1}^{n} \log |S_j|$.
+}
 
 \section{Graph Sharing Schemes}
 
