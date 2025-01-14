@@ -1,0 +1,142 @@
+\section{Summary}
+
+For those who have full understanding of the context of the paper, the short summary is this.
+
+This paper rigorously defines as proven theorems the bounds for the share sizes for the following types of secret-sharing schemes:
+
+\begin{itemize}
+    \item Secret-sharing schemes of almost all access structures
+    \item Graph secret-sharing schemes
+\end{itemize}
+
+Also, for all very dense graphs, it improves the total share size.
+
+Everything further below is a more detailed review with explanations of the context and the discussion of this results.
+
+It is assumed that this review will be read with the original paper alongside.
+When necessary, the relevant parts of the original paper will be referred to, not cited.
+
+Through the whole paper a number $n$ is used.
+It's crucial to remember that $n$ is not the length of the secret itself but the number of parties (or amount of shares) to which the secret is split.
+
+\section{Asymptotic Notation}
+
+The paper uses extensively the asymptotic notation to describe the bounds of the share sizes.
+It is absolutely necessary to understand the notation to understand the paper.
+
+The good reference to almost all of it is the book by Cormen et al. \cite{cormen2009introduction}.
+
+When the asymptotic notation is used as part of a mathematical expression, it means an arbitrary function that would satisfy the condition.
+
+Let's summarize the notation used in the paper.
+
+\subsection{Bounded}
+
+\[
+    \Theta\left(g\left(n\right)\right)= \{f(n) | \exists c_1 \exists c_2 \exists n_0: \forall n \ge n_o: 0 \le c_1 g(n) \le f(n) \le c_2 g(n) \}
+\]
+
+That is, $\Theta$ is the set of functions $f(n)$ that are bounded both from above and below by $g(n)$ scaled by two constants $c_1, c_2$.
+
+\subsection{Upper bound}
+
+\[
+    O\left(g\left(n\right)\right)={f(n): \exists c \exists n_0: \forall n \ge n_o: 0 \le  f(n) \le c g(n)}
+\]
+
+That is, $O$ is the set of functions $f(n)$ that are bounded from above by $g(n)$ with respect to a constant factor $c$.
+
+\subsection{Lower bound}
+
+\[
+    \Omega\left(g\left(n\right)\right)={f(n): \exists c \exists n_0: \forall n \ge n_o: 0  \le c g(n) \le  f(n)}
+\]
+
+That is, $\Omega$ is the set of functions $f(n)$ that are bounded from below by $g(n)$ with respect to a constant factor $c$.
+
+\subsection{Upper bound asymptotically not tight}
+
+\[
+    o(g(n)) = f(n): \forall c > 0: \exists n_o: 0 \le f(n) \le cg(n), \forall n \ge n_o
+\]
+
+That is, $\lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=0$.
+As we move further along $n$, $f(n)$ becomes insignificant compared to $g(n)$. 
+
+\subsection{Lower bound asymptotically not tight}
+
+\[
+    \omega(g(n)) = f(n): \forall c > 0: \exists n_o: 0  \le cg(n)\le f(n), \forall n \ge n_o
+\]
+
+That is, $\lim_{n\rightarrow\infty}\frac{f(n)}{g(n)}=\infty$.
+As we move further along $n$, $g(n)$ becomes insignificant compared to $f(n)$.
+
+\subsection{Soft-O}
+
+An additional notation which is used in this paper extensively but is not covered in \cite{cormen2009introduction} is the $\tilde{O}$ notation.
+
+The $\tilde{O}$ notation is used to hide polylogarithmic factors, that is:
+
+\[
+    f(n) \in \tilde{O}(g(n)) \Longleftrightarrow f(n) \in O(g(n) \cdot \text{polylog}(n))
+\]
+
+where $\text{polylog}(n) = \log^c n$ for some constant $c$.
+
+\section{Secret Sharing Schemes}
+
+A secret-sharing scheme can be represented symbolically as follows:
+
+\[
+    S \times R \rightarrow S_1 \times S_2 \times \cdots \times S_n
+\]
+
+Where $S$ is the non-empty non-singular set of secrets, $R$ is the set of random strings, and $S_1, S_2, \ldots, S_n$ are the set of shares of the secret for a set of parties $P$.
+
+A party $P_i$ has an ability to own shares from $S_i$.
+
+A secret-sharing scheme assume existence of a trusted \textit{dealer} who distributes shares to the parties.
+
+An access structure is a collection of sets of parties that can reconstruct the secret.
+It is represented in the paper by $\Gamma$.
+
+
+arbitrary access structure
+graphs
+forbidden graphs
+
+vs 
+
+"a" share scheme
+linear scheme
+multi-linear scheme
+
+Two families of secret-sharing schemes which are the core topic in the paper:
+1. graph secret-sharing schemes 
+2. multi-linear secret-sharing schemes
+
+\subsection{Sizes of shares}
+
+The paper stresses out the distinction between the total size of the shares and maximum sizes of the shares.
+
+
+\section{Graph Sharing Schemes}
+
+
+\section{CDS}
+\section{Main results}
+
+The paper rigorously defines the bounds for the share sizes for the following types of secret-sharing schemes:
+
+\section{Discussion of the results}
+
+authors perform super rigorous analysis on an array of types of SSS
+
+the paper is super tight on math so no detailed analysis it will take too much time
+
+this paper can also serve as an overview on the major SSS types
+
+core topic are graph secret-sharing schemes and CDS
+
+for some cases they were able to determine the bounds more precisely
