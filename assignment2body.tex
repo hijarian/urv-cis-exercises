@@ -135,9 +135,28 @@ the \emph{maximum share size} as $\max_{1\le j \le n} \{\log |S_j| \}$,
 and the \emph{total share size} as $\sum_{j=1}^{n} \log |S_j|$.
 }
 
-\section{Graph Sharing Schemes}
+\section{Graph secret-sharing Schemes}
+
+This is one of the subclasses of the secret-sharing schemes which share size bounds are explored in this paper very extensively.
+
+If we have a graph $G$, we say that a secret-sharing scheme realizes this graph $G$ if it realizes the access structure $\Gamma_G$ with the following properties:
+
+\begin{itemize}
+    \item minimal authorized subsets are the edges in $G$.
+    \item unauthorized sets are independent sets in $G$.
+\end{itemize}
+
+\section{(G, t)-secret-sharing schemes}
+
+This paper introduces a new family of schemes which is a specialisation of graph secret-sharing schemes.
+
 
 \section{CDS}
+
+This paper uses the concept of Conditional Disclosure of Secrets (CDS) Protocols in the latter part of the paper in the discussion on the graph access structures.
+
+The fact that $(G,t)$-secret-sharing schemes are equivalent to some particular configurations of CDS protocols is used to improve the bounds for the share sizes for the dense graphs.
+
 \section{Main results}
 
 The paper rigorously defines the bounds for the share sizes for the number of secret-sharing schemes.
@@ -191,6 +210,8 @@ For the secret-sharing schemes of \textbf{almost all graphs}, the paper proves t
 \end{itemize}
 
 All these results are specified as mathematically proven theorems.
+
+A new family of schemes called $(G, t)$-secret-sharing schemes is introduced.
 
 \section{Discussion of the results}
 
