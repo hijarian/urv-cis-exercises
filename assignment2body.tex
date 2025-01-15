@@ -86,10 +86,10 @@ where $\text{polylog}(n) = \log^c n$ for some constant $c$.
 
 \section{Secret Sharing Schemes}
 
-A secret-sharing scheme can be represented symbolically as follows:
+A secret-sharing scheme $\Pi$ can be represented symbolically as follows:
 
 \[
-    S \times R \rightarrow S_1 \times S_2 \times \cdots \times S_n
+    \Pi: S \times R \rightarrow S_1 \times S_2 \times \cdots \times S_n
 \]
 
 Where $S$ is the non-empty non-singular set of secrets, $R$ is the set of random strings, and $S_1, S_2, \ldots, S_n$ are the set of shares of the secret for a set of parties $P$.
@@ -98,17 +98,44 @@ A party $P_i$ has an ability to own shares from $S_i$.
 
 A secret-sharing scheme assume existence of a trusted \textit{dealer} who distributes shares to the parties.
 
+Formally, a dealer distributes a secret $s \in S$
+according to $\Pi$ by first sampling a random string $r \in R$ with uniform distribution,
+computing a vector of shares $\Pi(s, r) = (s1, \cdots , sn)$, and privately communicating
+each share $s_j$ to party $P_j$.
+
 \subsection{Access Structures}
 
 An access structure is a collection of sets of parties that can reconstruct the secret.
 
-That is, if $P = \{P_1, \cdots, P_n\}$ is a set of parties, then the monotone collection $\Gamma \in 2^P$ of non-empty subsets of $P$ is an access structure $\Gamma$.
+That is, if $P = \{P_1, \cdots, P_n\}$ is a set of parties, then the monotone collection $\Gamma \subseteq 2^P$ of non-empty subsets of $P$ is an access structure $\Gamma$.
 
 Sets in $\Gamma$ are called \textbf{authorized} sets, and the sets not in $\Gamma$ are called \textbf{unauthorized} sets.
 
+It is said that a secret-sharing scheme $\Pi$ with domain of secrets $S$ realizes an access structure $\Gamma$ if the following two requirements hold:
+
+\textbf{Correctness}. The secret $s$ can be reconstructed by any authorized set of parties.
+That is, for any set $B = \{P_{i_1}, \cdots, P_{i_{|B|}}\} \in \Gamma$ there exists a reconstruction
+function $\text{Recon}_B : S_{i_1} \times \cdots \times S_{i_{|B|}} \rightarrow S$ such that
+
+$$\text{ReconB} (\Pi_B (s, r)) = s$$
+
+for every secret $s \in S$ and every random string $r \in R$.
+
+\textbf{Privacy}. Any forbidden set cannot learn anything about the secret from its shares.
+
+Formally, for any set $T = \{P_{i_1}, \cdots, P_{i_{|T|}}\} \notin \Gamma$ and 
+every pair of secrets $s, s' \in S$,
+the distributions $\Pi_T (s, r)$ and $\Pi_T (s', r)$ are identical,
+where the distributions are over the choice of $r$ from $R$ at random with uniform distribution.
+
 \subsection{Linear and multi-linear secret-sharing schemes}
-linear scheme
-multi-linear scheme
+
+The bounds for the share sizes are very different for linear and multi-linear secret-sharing schemes.
+
+We say that $\Pi$ is a multi-linear secret-sharing scheme over a finite field $\mathbb{F}$ if there are integers
+$\mathcal{l}_d, \mathcal{l}_r , \mathcal{l}_1 , \cdots , \mathcal{l}_n$ such that $S = \mathbb{F}^{\mathcal{l}_d} , R = \mathbb{F}^{\mathcal{l}_r} , S_1 = \mathbb{F}^{\mathcal{l}_1} , \cdots , S_n = \mathbb{F}^{\mathcal{l}_n}$,
+and the mapping $\Pi$ is a linear mapping over $\mathbb{F}$ from $\mathbb{F}^{\mathcal{l}_d + \mathcal{l}_r}$ to $\mathbb{F}^{\mathcal{l}_1 + \cdots + \mathcal{l}_n}$.
+We say that a scheme is linear over $\mathbb{F}$ if $S = \mathbb{F}$ (\textit{i. e.}, when $\mathcal{l}_d = 1$).
 
 \subsection{Sizes of shares}
 
