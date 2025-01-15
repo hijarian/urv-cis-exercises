@@ -187,13 +187,43 @@ They are defined as graphs with at least $\binom{n}{2} - n^{1 + \beta }$ edges f
 
 This paper introduces a new family of schemes which is a specialisation of graph secret-sharing schemes.
 
-(formal definition here)
+
 
 The forbidden graph is a (G, 2) secret-sharing scheme.
 
 \section{CDS}
 
 This paper uses the concept of Conditional Disclosure of Secrets (CDS) Protocols in the latter part of the paper in the discussion on the graph access structures.
+
+Let $f : X_1 \times \cdots \times X_k \rightarrow {0, 1}$ be a $k$-input function.
+
+A $k$-server CDS protocol $P$ for $f$ with domain of secrets $S$ consists of:
+
+\begin{enumerate}
+    \item A finite domain of common random strings $R$, and $k$ finite message domains
+    $M_1 , \ldots , M_k$,
+    \item Deterministic message computation functions $\text{Enc}_1 , \ldots , \text{Enc}_k$ ,
+    where $\text{Enc}_i : X_i \times S \times R \rightarrow M_i$ for every $i \in [k]$ (we also say that $\text{Enc}_i (x_i , s, r)$ is the
+    message sent by the $i$-th server to the referee), and
+    \item A deterministic reconstruction function $\text{Dec} : X_1 \times \cdots \times X_k \times M_1 \times \cdots \times M_k \rightarrow \{0, 1\}$.
+\end{enumerate}
+
+We denote $\text{Enc}(x, s, r) = (\text{Enc}_1 (x_1 , s, r), \ldots, \text{Enc}_k(x_k , s, r))$.
+
+We say that a CDS protocol $P$ is a CDS protocol for a function $f$ if the following two require-
+ments hold:
+
+\textbf{Correctness}. For any input $(x_1 , \cdots , x_k ) \in X_1 \times \cdots \times X_k$ for which
+$f(x_1, \cdots , x_k ) = 1$, every secret $s \in S$, and every common random string $r \in R$,
+$\text{Dec}(x_1 , \cdots , x_k , \text{Enc}_1 (x_1, s, r), \cdots , \text{Enc}_k (x_k , s, r)) = s$.
+
+\textbf{Privacy}. For any input $x = (x_1 , \cdots , x_k ) \in X_1 \times \cdots \times X_k$ for which
+$f (x_1, \cdots , x_k ) = 0$ and for every pair of secrets $s$, $s'$ , the distributions $\text{Enc}(x, s, r)$
+and $\text{Enc}(x, s' , r)$ are identical, where the distributions are over the choice of $r$
+from $R$ at random with uniform distribution.
+
+The message size of a CDS protocol $P$ is defined as the size of largest message
+sent by the servers, i.e., $\max_{1 \le i \le k} \{\log |M_i|\}$.
 
 The fact that $(G,t)$-secret-sharing schemes are equivalent to some particular configurations of CDS protocols is used to improve the bounds for the share sizes for the dense graphs.
 
