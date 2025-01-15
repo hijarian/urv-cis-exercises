@@ -137,20 +137,74 @@ and the \emph{total share size} as $\sum_{j=1}^{n} \log |S_j|$.
 
 \section{Graph Sharing Schemes}
 
-
 \section{CDS}
 \section{Main results}
 
-The paper rigorously defines the bounds for the share sizes for the following types of secret-sharing schemes:
+The paper rigorously defines the bounds for the share sizes for the number of secret-sharing schemes.
+
+For the secret-sharing schemes of \textbf{almost all access structures}, the paper proves the following bounds:
+
+\begin{itemize}
+    \item The maximum share size for one-bit secret is bounded 
+    \begin{itemize}
+        \item from the top by $2^{O(\sqrt{n}\log n)}$
+        \item from the bottom by $\Omega(\log n)$
+    \end{itemize}
+    \item The maximum share size for linear schemes is bounded
+    \begin{itemize}
+        \item from the top by $2^{n/2+o(n)}$
+        \item from the bottom by $\Omega(2^{n/3-o(n)}\log q)$
+    \end{itemize}
+    \item The normalized maximum share size for multi-linear schemes for secrets of size $2^{n^2}$ is bounded
+    \begin{itemize}
+        \item from the top by $2^{O(\sqrt{n \log n})}$
+    \end{itemize}
+\end{itemize}
+
+All these results are specified as mathematically proven theorems.
+
+While proving these bounds, two hypotheses from \cite{applebaumAmortization} are proven:
+
+\begin{itemize}
+    \item \textbf{SS is short}. Every access structure over n parties is realizable with small information ratio (say $2^{o(n)}$ ).
+    \item \textbf{SS is amortizable}. For every access structure over $n$ parties, and every sufficiently long secret $s$, 
+            there exists a secret-sharing scheme with small information ratio (e.g., sub-exponential in $n$).
+\end{itemize}
+
+For the secret-sharing schemes of \textbf{almost all graphs}, the paper proves the following bounds:
+
+\begin{itemize}
+    \item The maximum share size for one-bit secret is bounded 
+    \begin{itemize}
+        \item from the top by $n^{o(1)}$
+        \item from the bottom by $\Omega(\log n)$
+    \end{itemize}
+    \item The maximum share size for linear schemes is bounded
+    \begin{itemize}
+        \item from the top by $\tilde{O}(\sqrt{n} \log q)$
+    \end{itemize}
+    \item The normalized maximum share size for multi-linear schemes for secrets of size $2^{n^2}$ is bounded
+    \begin{itemize}
+        \item from the top by $\tilde{O}(\log n)$
+        \item from the bottom by $\Omega(\log^{1/2} n)$
+    \end{itemize}
+\end{itemize}
+
+All these results are specified as mathematically proven theorems.
 
 \section{Discussion of the results}
 
-authors perform super rigorous analysis on an array of types of SSS
+Authors perform super rigorous analysis on an array of types of secret-sharing schemes.
+The paper is super tight on mathematics and is obviously targeted on the specialists in cryptography.
 
-the paper is super tight on math so no detailed analysis it will take too much time
+However, this paper can also serve as an overview on the major secret-sharing schemes and their properties.
 
-this paper can also serve as an overview on the major SSS types
+It seriously looks like multiple papers compressed into one, especially with the result for the dense graphs which looks like a separate work on its own.
+As the main value of this paper is summarizing the existing works on share sizes and proving some of the results,
+but the result for the dense graphs has been gotten by the novel usage of a CDS scheme.
 
-core topic are graph secret-sharing schemes and CDS
+I admit I didn't understand the importance of the term "almost all access structures" used extensively in the paper.
 
-for some cases they were able to determine the bounds more precisely
+In general, knowing the theoretical bounds for the share sizes is crucial for the practical implementation of the secret-sharing schemes.
+As it's important to know your absolute limits to understand when you need to stop optimizing your code.
+
