@@ -101,22 +101,14 @@ A secret-sharing scheme assume existence of a trusted \textit{dealer} who distri
 \subsection{Access Structures}
 
 An access structure is a collection of sets of parties that can reconstruct the secret.
-It is represented in the paper by $\Gamma$.
 
+That is, if $P = \{P_1, \cdots, P_n\}$ is a set of parties, then the monotone collection $\Gamma \in 2^P$ of non-empty subsets of $P$ is an access structure $\Gamma$.
 
-arbitrary access structure
-graphs
-forbidden graphs
+Sets in $\Gamma$ are called \textbf{authorized} sets, and the sets not in $\Gamma$ are called \textbf{unauthorized} sets.
 
-vs 
-
-"a" share scheme
+\subsection{Linear and multi-linear secret-sharing schemes}
 linear scheme
 multi-linear scheme
-
-Two families of secret-sharing schemes which are the core topic in the paper:
-1. graph secret-sharing schemes 
-2. multi-linear secret-sharing schemes
 
 \subsection{Sizes of shares}
 
@@ -146,10 +138,31 @@ If we have a graph $G$, we say that a secret-sharing scheme realizes this graph 
     \item unauthorized sets are independent sets in $G$.
 \end{itemize}
 
+\subsection{Forbidden graph access structures}
+
+The great importance in the paper is given to the \textit{forbidden graph access structures} which are the specialization of the graph access structures.
+
+As described in \cite{forbiddenGraphAccessStructures}, the forbidden graph access structure is a graph access structure described as follows:
+
+\begin{itemize}
+    \item authorized sets are all edges in the graph
+    \item the unauthorized sets are all independent sets in the graph.
+    \item \textit{in addition to the above}, the authorized sets are all subsets of vertices of size greater than two
+\end{itemize}
+
+\subsection{Very dense graphs}
+
+In this paper a specialization of graphs is studied which is very dense graphs.
+
+They are defined as graphs with at least $\binom{n}{2} - n^{1 + \beta }$ edges for some $0 \le \beta < 12$.
+
 \section{(G, t)-secret-sharing schemes}
 
 This paper introduces a new family of schemes which is a specialisation of graph secret-sharing schemes.
 
+(formal definition here)
+
+The forbidden graph is a (G, 2) secret-sharing scheme.
 
 \section{CDS}
 
